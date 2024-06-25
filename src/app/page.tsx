@@ -3,8 +3,15 @@
 import bubbleSort from "../../scripts";
 import { useState, useEffect } from "react";
 
+const Bar = ({ height }) => {
+  return <div style={{ background: "red", height: `${height}px` }}>abc</div>;
+};
+
 const Bubbles = () => {
   const [input, setInput] = useState(0);
+  const [barState, setBarState] = useState<Number[] | Number[][]>([]);
+
+  console.log(barState[0]);
 
   return (
     <>
@@ -15,14 +22,16 @@ const Bubbles = () => {
       ></input>
       <button
         onClick={() => {
-          console.log(bubbleSort(Array.from(String(input), Number)));
+          setBarState(bubbleSort(Array.from(String(input), Number)));
         }}
       >
         SortMe
       </button>
-      {bubbleSort([3, 4, 3, 2, 1]).map((element, index) => (
-        <button key={index}>{element.toString()}</button>
-      ))}
+      <div>
+        {barState[0]?.map((element, index) => (
+          <div key={index}>3412</div>
+        ))}
+      </div>
     </>
   );
 };
@@ -34,6 +43,3 @@ export default function Home() {
     </main>
   );
 }
-
-//is this a server??
-//bubbleSort(Array.from(String(input), Number))

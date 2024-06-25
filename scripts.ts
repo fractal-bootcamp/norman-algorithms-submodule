@@ -13,6 +13,7 @@ const bubbleStep = (input: Number[]) => {
 };
 
 const bubbleSort = (input: Number[]) => {
+  let steps = [];
   while (
     !input.every(
       (currentElement, currentIndex) =>
@@ -20,12 +21,10 @@ const bubbleSort = (input: Number[]) => {
     )
   ) {
     input = bubbleStep(input);
-    console.log(input);
+    steps.push(input);
   }
 
-  return input;
+  return [input, steps];
 };
-
-bubbleSort([4, 3, 2, 1]);
 
 export default bubbleSort;
