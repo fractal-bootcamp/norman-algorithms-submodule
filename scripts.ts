@@ -1,5 +1,6 @@
 const bubbleStep = (input: Number[]) => {
-  const nextStep = [...input];
+  const nextStep = [...input]; // equivalent to const nextStep = input
+  //could ...input ever not be equal to input here?
   for (let i = 0; i < nextStep.length - 1; i++) {
     let helper = [nextStep[i], nextStep[i + 1]];
 
@@ -24,7 +25,9 @@ const bubbleSort = (input: Number[]) => {
     steps.push(input);
   }
 
-  return [input, steps];
+  const bubbleSortResult = { sorted: input, steps: steps };
+
+  return bubbleSortResult;
 };
 
 export default bubbleSort;

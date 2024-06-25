@@ -1,45 +1,93 @@
 "use client";
 
 import bubbleSort from "../../scripts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
-const Bar = ({ height }) => {
-  return <div style={{ background: "red", height: `${height}px` }}>abc</div>;
-};
+/*
+interface inputProps {
+  setData: React.Dispatch<React.SetStateAction<string>>;
+    
+  data.steps
+}
+*/
 
-const Bubbles = () => {
-  const [input, setInput] = useState(0);
-  const [barState, setBarState] = useState<Number[] | Number[][]>([]);
-
-  console.log(barState[0]);
+const Bars = ({ data }) => {
+  const [step, setStep] = useState(0);
+  console.log(data);
 
   return (
     <>
-      <input
-        onChange={(event) => setInput(event.target.value)}
-        value={input}
-        className="text-black"
-      ></input>
       <button
         onClick={() => {
-          setBarState(bubbleSort(Array.from(String(input), Number)));
+          if (step > 0) {
+            setStep(step - 1);
+          }
         }}
       >
-        SortMe
+        Step Out
       </button>
-      <div>
-        {barState[0]?.map((element, index) => (
-          <div key={index}>3412</div>
+      <button
+        onClick={() => {
+          if (step < data.steps.length - 1) {
+            setStep(step + 1);
+          }
+        }}
+      >
+        Step In
+      </button>
+
+      <div style={{ display: "flex" }}>
+        {data.steps[step].map((element) => (
+          <div style={{ background: "green", height: element * 4 }}>a</div>
         ))}
       </div>
     </>
   );
 };
 
+//creates and submits the input to bubblesort
+const Input = ({ setData }) => {
+  const [input, setInput] = useState<number[]>([]);
+
+  //converts string event.target.value to Int[], checking for Nan
+  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const integer = parseInt(event.target.value);
+    if (typeof integer === "number" && !Number.isNaN(integer)) {
+      setInput(Array.from(String(integer), Number));
+    }
+  };
+
+  return (
+    <div>
+      {/* onChange sends events to a callback function */}
+      <input onChange={inputHandler}></input>
+      <button onClick={() => setData(bubbleSort(input))}> BubbleSort! </button>
+    </div>
+  );
+};
+
+const Display = () => {
+  const [data, setData] = useState({});
+  if (Object.keys(data).length === 0) {
+    return (
+      <div>
+        <Input setData={setData}></Input>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Input setData={setData}></Input>
+        <Bars data={data}></Bars>
+      </div>
+    );
+  }
+};
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Bubbles></Bubbles>
+    <main>
+      <Display></Display>
     </main>
   );
 }
