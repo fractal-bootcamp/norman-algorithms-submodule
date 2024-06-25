@@ -38,7 +38,14 @@ const Bars = ({ data }) => {
 
       <div style={{ display: "flex" }}>
         {data.steps[step].map((element) => (
-          <div style={{ background: "green", height: element * 4 }}>a</div>
+          <div
+            style={{
+              background: "green",
+              height: `${(element * 10).toString()}px`,
+            }}
+          >
+            a
+          </div>
         ))}
       </div>
     </>
