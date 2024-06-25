@@ -13,6 +13,7 @@ interface inputProps {
 
 const Bars = ({ data }) => {
   const [step, setStep] = useState(0);
+
   console.log(data);
 
   return (
